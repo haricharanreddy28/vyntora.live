@@ -1,0 +1,2629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vyntora AI — AI that powers your next move</title>
+  <meta name="description" content="Vyntora AI is an elite AI automation and consulting agency building intelligent agents, proprietary workflows, and high-performance acquisition systems for US & UK hyper-growth scaleups.">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    /* CUSTOM CSS RESET & DESIGN VARIABLES */
+    :root {
+      --bg-color: #080810;
+      --accent-green: #00e5a0;
+      --accent-green-rgb: 0, 229, 160;
+      --color-purple: #7b5cff;
+      --color-purple-rgb: 123, 92, 255;
+      --text-white: #f4f2ee;
+      --text-muted: #94a3b8;
+      --card-bg: rgba(15, 15, 27, 0.65);
+      --card-border: rgba(244, 242, 238, 0.05);
+      --font-headings: 'Syne', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
+      --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      scrollbar-width: thin;
+      scrollbar-color: var(--accent-green) var(--bg-color);
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--bg-color);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(0, 229, 160, 0.3);
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--accent-green);
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background-color: var(--bg-color);
+      color: var(--text-white);
+      font-family: var(--font-body);
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    body {
+      position: relative;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* SVG Noise Filter Overlay */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+      opacity: 0.035;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    /* Ambient Glow Orbs */
+    .glow-container {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .glow-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(140px);
+      opacity: 0.12;
+      mix-blend-mode: screen;
+      animation: floatOrb 25s infinite alternate ease-in-out;
+    }
+    .glow-orb-1 {
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, var(--accent-green) 0%, transparent 70%);
+      top: 5%;
+      left: -150px;
+    }
+    .glow-orb-2 {
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, var(--color-purple) 0%, transparent 70%);
+      top: 35%;
+      right: -150px;
+      animation-delay: -5s;
+    }
+    .glow-orb-3 {
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, var(--accent-green) 0%, transparent 70%);
+      bottom: 25%;
+      left: 10%;
+      animation-delay: -10s;
+    }
+    .glow-orb-4 {
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, var(--color-purple) 0%, transparent 70%);
+      bottom: 5%;
+      right: 15%;
+      animation-delay: -15s;
+    }
+
+    @keyframes floatOrb {
+      0% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(60px, -80px) scale(1.1); }
+      100% { transform: translate(-40px, 40px) scale(0.9); }
+    }
+
+    /* Structure Wrapper */
+    .container {
+      width: 100%;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* STICKY NAVBAR */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 100;
+      background: rgba(8, 8, 16, 0.7);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--card-border);
+      transition: var(--transition-smooth);
+    }
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 80px;
+    }
+    .logo-container {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+    .logo-container svg {
+      height: 40px;
+      width: auto;
+    }
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+    }
+    .nav-link {
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: var(--transition-smooth);
+      position: relative;
+      padding: 8px 0;
+    }
+    .nav-link::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--accent-green);
+      transition: var(--transition-smooth);
+    }
+    .nav-link:hover {
+      color: var(--text-white);
+    }
+    .nav-link:hover::after {
+      width: 100%;
+    }
+    
+    /* BUTTONS */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 500;
+      padding: 12px 24px;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: var(--transition-smooth);
+      gap: 8px;
+      border: none;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent-green) 0%, #00b87a 100%);
+      color: #080810;
+      box-shadow: 0 4px 20px rgba(0, 229, 160, 0.25);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 229, 160, 0.4);
+    }
+    .btn-secondary {
+      background: rgba(244, 242, 238, 0.03);
+      color: var(--text-white);
+      border: 1px solid var(--card-border);
+    }
+    .btn-secondary:hover {
+      background: rgba(244, 242, 238, 0.08);
+      border-color: rgba(244, 242, 238, 0.2);
+      transform: translateY(-2px);
+    }
+    .btn-purple {
+      background: linear-gradient(135deg, var(--color-purple) 0%, #6344e6 100%);
+      color: var(--text-white);
+      box-shadow: 0 4px 20px rgba(123, 92, 255, 0.25);
+    }
+    .btn-purple:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(123, 92, 255, 0.4);
+    }
+
+    /* HAMBURGER MENU */
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      z-index: 110;
+    }
+    .hamburger-icon {
+      width: 24px;
+      height: 18px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .hamburger-icon span {
+      display: block;
+      width: 100%;
+      height: 2px;
+      background-color: var(--text-white);
+      border-radius: 2px;
+      transition: var(--transition-smooth);
+    }
+    .menu-toggle.active .hamburger-icon span:nth-child(1) {
+      transform: translateY(8px) rotate(45deg);
+    }
+    .menu-toggle.active .hamburger-icon span:nth-child(2) {
+      opacity: 0;
+    }
+    .menu-toggle.active .hamburger-icon span:nth-child(3) {
+      transform: translateY(-8px) rotate(-45deg);
+    }
+
+    /* MOBILE DRAWER */
+    .mobile-menu {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 100%;
+      height: 100vh;
+      background: #080810;
+      z-index: 90;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 32px;
+      transition: var(--transition-smooth);
+      border-left: 1px solid var(--card-border);
+      padding: 40px;
+    }
+    .mobile-menu.active {
+      right: 0;
+    }
+    .mobile-menu .nav-link {
+      font-size: 20px;
+      font-weight: 500;
+    }
+
+    /* SCROLL REVEAL ANIMATIONS */
+    .reveal {
+      opacity: 0;
+      transform: translateY(35px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* SECTION BASICS */
+    section {
+      padding: 100px 0;
+      position: relative;
+    }
+    .section-header {
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto 64px auto;
+    }
+    .section-tag {
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--accent-green);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 12px;
+      display: inline-block;
+    }
+    .section-title {
+      font-family: var(--font-headings);
+      font-size: 40px;
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 16px;
+      letter-spacing: -1px;
+    }
+    .section-title span {
+      background: linear-gradient(135deg, var(--text-white) 30%, var(--accent-green) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .section-desc {
+      font-size: 16px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* 1. HERO SECTION */
+    .hero-section {
+      padding-top: 180px;
+      padding-bottom: 80px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      min-height: 95vh;
+      justify-content: center;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0, 229, 160, 0.05);
+      border: 1px solid rgba(0, 229, 160, 0.15);
+      padding: 6px 16px;
+      border-radius: 100px;
+      margin-bottom: 24px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--accent-green);
+      letter-spacing: 0.5px;
+    }
+    .hero-badge span.dot {
+      width: 6px;
+      height: 6px;
+      background-color: var(--accent-green);
+      border-radius: 50%;
+      display: inline-block;
+      box-shadow: 0 0 10px var(--accent-green);
+      animation: pulse 1.8s infinite;
+    }
+    @keyframes pulse {
+      0% { opacity: 0.3; }
+      50% { opacity: 1; }
+      100% { opacity: 0.3; }
+    }
+    .hero-title {
+      font-family: var(--font-headings);
+      font-size: 72px;
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -3px;
+      max-width: 950px;
+      margin-bottom: 24px;
+    }
+    .hero-title span.glow-text {
+      background: linear-gradient(135deg, var(--accent-green) 0%, var(--color-purple) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      position: relative;
+    }
+    .hero-subtitle {
+      font-size: 20px;
+      line-height: 1.6;
+      color: var(--text-muted);
+      max-width: 720px;
+      margin-bottom: 40px;
+      font-weight: 300;
+    }
+    .hero-ctas {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 80px;
+      justify-content: center;
+    }
+    
+    /* Stats Bar */
+    .stats-bar {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 16px;
+      padding: 32px;
+      text-align: left;
+    }
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      position: relative;
+    }
+    .stat-item:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      right: -12px;
+      top: 15%;
+      height: 70%;
+      width: 1px;
+      background: rgba(244, 242, 238, 0.06);
+    }
+    .stat-num {
+      font-family: var(--font-headings);
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--accent-green);
+      letter-spacing: -1px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .stat-num span.plus {
+      color: var(--color-purple);
+    }
+    .stat-label {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-white);
+    }
+    .stat-desc {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* 2. SERVICES SECTION */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .service-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 36px;
+      transition: var(--transition-smooth);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 380px;
+    }
+    .service-card::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: radial-gradient(circle at 10% 10%, rgba(123, 92, 255, 0.08) 0%, transparent 50%);
+      opacity: 0;
+      transition: var(--transition-smooth);
+    }
+    .service-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(0, 229, 160, 0.25);
+      box-shadow: 0 12px 30px rgba(0, 229, 160, 0.05);
+    }
+    .service-card:hover::before {
+      opacity: 1;
+    }
+    .service-icon-wrapper {
+      width: 52px;
+      height: 52px;
+      background: rgba(0, 229, 160, 0.06);
+      border: 1px solid rgba(0, 229, 160, 0.15);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+      color: var(--accent-green);
+      transition: var(--transition-smooth);
+    }
+    .service-card:hover .service-icon-wrapper {
+      background: var(--accent-green);
+      color: #080810;
+      transform: scale(1.05);
+    }
+    .service-icon-wrapper svg {
+      width: 24px;
+      height: 24px;
+    }
+    .service-body {
+      flex-grow: 1;
+    }
+    .service-card-title {
+      font-family: var(--font-headings);
+      font-size: 20px;
+      font-weight: 800;
+      margin-bottom: 12px;
+      letter-spacing: -0.5px;
+    }
+    .service-card-desc {
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+    .service-footer {
+      border-top: 1px solid rgba(244, 242, 238, 0.04);
+      padding-top: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .service-price-tag {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+    .service-price-tag span {
+      font-family: var(--font-headings);
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--accent-green);
+    }
+    .service-explore-link {
+      font-size: 13px;
+      color: var(--text-white);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 500;
+      transition: var(--transition-smooth);
+    }
+    .service-explore-link svg {
+      width: 14px;
+      height: 14px;
+      transition: var(--transition-smooth);
+    }
+    .service-card:hover .service-explore-link {
+      color: var(--accent-green);
+    }
+    .service-card:hover .service-explore-link svg {
+      transform: translateX(4px);
+    }
+
+    /* 3. HOW IT WORKS SECTION */
+    .process-timeline {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      position: relative;
+    }
+    .process-timeline::after {
+      content: "";
+      position: absolute;
+      top: 52px;
+      left: 10%;
+      right: 10%;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(123, 92, 255, 0) 0%, rgba(123, 92, 255, 0.3) 20%, rgba(0, 229, 160, 0.3) 80%, rgba(0, 229, 160, 0) 100%);
+      z-index: 0;
+    }
+    .process-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 32px;
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      transition: var(--transition-smooth);
+    }
+    .process-card:hover {
+      border-color: rgba(123, 92, 255, 0.3);
+      transform: translateY(-4px);
+    }
+    .process-num {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--color-purple) 0%, #6344e6 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-headings);
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--text-white);
+      margin: 0 auto 24px auto;
+      box-shadow: 0 0 15px rgba(123, 92, 255, 0.3);
+    }
+    .process-card:nth-child(even) .process-num {
+      background: linear-gradient(135deg, var(--accent-green) 0%, #00b87a 100%);
+      box-shadow: 0 0 15px rgba(0, 229, 160, 0.3);
+    }
+    .process-title {
+      font-family: var(--font-headings);
+      font-size: 18px;
+      font-weight: 800;
+      margin-bottom: 12px;
+      letter-spacing: -0.5px;
+    }
+    .process-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* 4. WHY VYNTORA SECTION */
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+    .why-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 40px;
+      display: flex;
+      gap: 24px;
+      transition: var(--transition-smooth);
+    }
+    .why-card:hover {
+      border-color: rgba(0, 229, 160, 0.2);
+      box-shadow: 0 10px 30px rgba(0, 229, 160, 0.03);
+    }
+    .why-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: rgba(123, 92, 255, 0.06);
+      border: 1px solid rgba(123, 92, 255, 0.15);
+      color: var(--color-purple);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .why-card:nth-child(even) .why-icon {
+      background: rgba(0, 229, 160, 0.06);
+      border-color: rgba(0, 229, 160, 0.15);
+      color: var(--accent-green);
+    }
+    .why-icon svg {
+      width: 22px;
+      height: 22px;
+    }
+    .why-info {
+      flex-grow: 1;
+    }
+    .why-card-title {
+      font-family: var(--font-headings);
+      font-size: 20px;
+      font-weight: 800;
+      margin-bottom: 8px;
+      letter-spacing: -0.5px;
+    }
+    .why-card-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* 5. MEETING SCHEDULER SECTION */
+    .scheduler-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 48px;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      position: relative;
+    }
+    .scheduler-info {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .scheduler-info-top h3 {
+      font-family: var(--font-headings);
+      font-size: 36px;
+      font-weight: 800;
+      margin-bottom: 16px;
+      line-height: 1.15;
+      letter-spacing: -1px;
+    }
+    .scheduler-info-top p {
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 32px;
+    }
+    .scheduler-benefits {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+    .benefit-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 14px;
+      font-weight: 400;
+    }
+    .benefit-item svg {
+      width: 18px;
+      height: 18px;
+      color: var(--accent-green);
+    }
+    .scheduler-footer-meta {
+      font-size: 13px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .scheduler-footer-meta svg {
+      width: 14px;
+      height: 14px;
+      color: var(--color-purple);
+    }
+
+    /* Interactive Calendar Widget & Form */
+    .scheduler-form-wrapper {
+      background: rgba(8, 8, 16, 0.4);
+      border: 1px solid rgba(244, 242, 238, 0.03);
+      border-radius: 16px;
+      padding: 32px;
+    }
+    .step-title {
+      font-family: var(--font-headings);
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--accent-green);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    /* Calendar Carousel */
+    .date-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+    .date-slot {
+      background: rgba(244, 242, 238, 0.02);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 12px 8px;
+      text-align: center;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+    }
+    .date-slot:hover {
+      border-color: rgba(123, 92, 255, 0.4);
+      background: rgba(123, 92, 255, 0.03);
+    }
+    .date-slot.selected {
+      background: rgba(0, 229, 160, 0.08);
+      border-color: var(--accent-green);
+      box-shadow: 0 0 12px rgba(0, 229, 160, 0.15);
+    }
+    .date-slot-day {
+      font-size: 11px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+    .date-slot-num {
+      font-family: var(--font-headings);
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--text-white);
+    }
+    .date-slot.selected .date-slot-num {
+      color: var(--accent-green);
+    }
+    .date-slot-month {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    /* Timeslot Grid */
+    .time-container {
+      margin-bottom: 28px;
+    }
+    .time-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      max-height: 180px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+    .time-slot {
+      background: rgba(244, 242, 238, 0.02);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 10px;
+      text-align: center;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-muted);
+      transition: var(--transition-smooth);
+    }
+    .time-slot:hover:not(.disabled) {
+      border-color: rgba(123, 92, 255, 0.4);
+      color: var(--text-white);
+    }
+    .time-slot.selected {
+      background: rgba(0, 229, 160, 0.08);
+      border-color: var(--accent-green);
+      color: var(--accent-green);
+    }
+    .time-slot.disabled {
+      opacity: 0.25;
+      cursor: not-allowed;
+      text-decoration: line-through;
+    }
+
+    /* Input Fields */
+    .form-group {
+      margin-bottom: 18px;
+    }
+    .form-label {
+      display: block;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .form-input {
+      width: 100%;
+      background: rgba(244, 242, 238, 0.02);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-family: var(--font-body);
+      font-size: 14px;
+      color: var(--text-white);
+      transition: var(--transition-smooth);
+    }
+    .form-input:focus {
+      outline: none;
+      border-color: var(--accent-green);
+      box-shadow: 0 0 10px rgba(0, 229, 160, 0.1);
+      background: rgba(244, 242, 238, 0.04);
+    }
+    select.form-input {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2394a3b8'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 16px center;
+      background-size: 16px;
+      padding-right: 40px;
+    }
+    select.form-input option {
+      background-color: var(--bg-color);
+      color: var(--text-white);
+    }
+
+    /* Form Actions & Feedback */
+    .form-error {
+      font-size: 12px;
+      color: #ff6b6b;
+      margin-top: -12px;
+      margin-bottom: 16px;
+      display: none;
+    }
+
+    /* Confirmation Card */
+    .confirmation-view {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 40px 20px;
+    }
+    .confirmation-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: rgba(0, 229, 160, 0.08);
+      border: 1px solid rgba(0, 229, 160, 0.2);
+      color: var(--accent-green);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+      box-shadow: 0 0 20px rgba(0, 229, 160, 0.1);
+    }
+    .confirmation-icon svg {
+      width: 32px;
+      height: 32px;
+    }
+    .confirmation-title {
+      font-family: var(--font-headings);
+      font-size: 24px;
+      font-weight: 800;
+      margin-bottom: 12px;
+      letter-spacing: -0.5px;
+    }
+    .confirmation-desc {
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+    .confirmation-details {
+      background: rgba(244, 242, 238, 0.02);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 16px 24px;
+      width: 100%;
+      margin-bottom: 28px;
+      text-align: left;
+    }
+    .conf-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      padding: 6px 0;
+    }
+    .conf-row:not(:last-child) {
+      border-bottom: 1px solid rgba(244, 242, 238, 0.03);
+    }
+    .conf-label {
+      color: var(--text-muted);
+    }
+    .conf-val {
+      font-weight: 500;
+      color: var(--text-white);
+    }
+
+    /* Admin Panel Toggle Floating Link */
+    .admin-toggle-wrapper {
+      display: flex;
+      justify-content: center;
+      margin-top: 24px;
+    }
+    .admin-toggle-btn {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      opacity: 0.5;
+      transition: var(--transition-smooth);
+    }
+    .admin-toggle-btn:hover {
+      opacity: 1;
+      color: var(--color-purple);
+    }
+    .admin-toggle-btn svg {
+      width: 12px;
+      height: 12px;
+    }
+
+    /* ADMIN PANEL OVERLAY */
+    .admin-modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(8, 8, 16, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .admin-modal-card {
+      background: #0f0f1b;
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      width: 100%;
+      max-width: 900px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+      display: flex;
+      flex-direction: column;
+      max-height: 85vh;
+      overflow: hidden;
+    }
+    .admin-modal-header {
+      padding: 24px 32px;
+      border-bottom: 1px solid var(--card-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .admin-modal-title {
+      font-family: var(--font-headings);
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--text-white);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .admin-modal-title svg {
+      width: 22px;
+      height: 22px;
+      color: var(--color-purple);
+    }
+    .admin-modal-close {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      padding: 4px;
+      transition: var(--transition-smooth);
+    }
+    .admin-modal-close:hover {
+      color: var(--text-white);
+      transform: scale(1.1);
+    }
+    .admin-modal-body {
+      padding: 32px;
+      overflow-y: auto;
+      flex-grow: 1;
+    }
+
+    /* Admin Password Prompt view */
+    .admin-password-view {
+      max-width: 380px;
+      margin: 40px auto;
+      text-align: center;
+    }
+    .admin-password-view p {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+    .admin-pass-error {
+      color: #ff6b6b;
+      font-size: 12px;
+      margin-top: 8px;
+      display: none;
+    }
+
+    /* Admin Table Dashboard */
+    .admin-dashboard-view {
+      display: none;
+    }
+    .admin-stats-summary {
+      display: flex;
+      gap: 24px;
+      margin-bottom: 28px;
+    }
+    .admin-stat-box {
+      background: rgba(244, 242, 238, 0.02);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 16px 24px;
+      flex-grow: 1;
+    }
+    .admin-stat-num {
+      font-family: var(--font-headings);
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--accent-green);
+      margin-top: 4px;
+    }
+    .admin-stat-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+    }
+    
+    .admin-table-wrapper {
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 24px;
+      background: rgba(8, 8, 16, 0.2);
+    }
+    .admin-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 13px;
+    }
+    .admin-table th {
+      background: rgba(244, 242, 238, 0.03);
+      padding: 16px 20px;
+      font-weight: 600;
+      color: var(--text-white);
+      border-bottom: 1px solid var(--card-border);
+      text-transform: uppercase;
+      font-size: 11px;
+      letter-spacing: 0.5px;
+    }
+    .admin-table td {
+      padding: 16px 20px;
+      border-bottom: 1px solid rgba(244, 242, 238, 0.03);
+      color: var(--text-muted);
+    }
+    .admin-table tr:hover td {
+      background: rgba(244, 242, 238, 0.01);
+      color: var(--text-white);
+    }
+    .admin-client-cell {
+      font-weight: 500;
+      color: var(--text-white);
+    }
+    .admin-badge-need {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 10px;
+      font-weight: 600;
+      background: rgba(123, 92, 255, 0.1);
+      color: var(--color-purple);
+      border: 1px solid rgba(123, 92, 255, 0.2);
+    }
+    .btn-delete {
+      background: none;
+      border: none;
+      color: #ff6b6b;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition-smooth);
+      opacity: 0.7;
+    }
+    .btn-delete:hover {
+      opacity: 1;
+      transform: scale(1.15);
+    }
+    .btn-delete svg {
+      width: 16px;
+      height: 16px;
+    }
+    
+    .admin-empty-state {
+      padding: 48px;
+      text-align: center;
+      color: var(--text-muted);
+    }
+    .admin-empty-state svg {
+      width: 40px;
+      height: 40px;
+      color: rgba(244, 242, 238, 0.15);
+      margin-bottom: 16px;
+    }
+    
+    .admin-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* 6. TESTIMONIALS SECTION */
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .testimonial-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 36px;
+      transition: var(--transition-smooth);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .testimonial-card:hover {
+      border-color: rgba(123, 92, 255, 0.25);
+      transform: translateY(-4px);
+    }
+    .testimonial-stars {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 20px;
+      color: #ffd700;
+    }
+    .testimonial-stars svg {
+      width: 14px;
+      height: 14px;
+    }
+    .testimonial-quote {
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--text-white);
+      margin-bottom: 28px;
+      position: relative;
+      z-index: 1;
+    }
+    .testimonial-quote::before {
+      content: "“";
+      position: absolute;
+      top: -24px;
+      left: -12px;
+      font-size: 64px;
+      font-family: var(--font-headings);
+      color: rgba(0, 229, 160, 0.08);
+      z-index: -1;
+    }
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .testimonial-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--color-purple) 0%, var(--accent-green) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-headings);
+      font-size: 14px;
+      font-weight: 800;
+      color: #080810;
+    }
+    .author-info-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-white);
+      margin-bottom: 2px;
+    }
+    .author-info-role {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* 7. FOOTER */
+    .footer {
+      border-top: 1px solid var(--card-border);
+      padding: 80px 0 40px 0;
+      background: rgba(4, 4, 8, 0.7);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      margin-top: 60px;
+    }
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 60px;
+      margin-bottom: 60px;
+    }
+    .footer-brand {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .footer-tagline {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      max-width: 320px;
+    }
+    .footer-links-title {
+      font-family: var(--font-headings);
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--text-white);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 20px;
+    }
+    .footer-links-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .footer-link {
+      font-size: 13px;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: var(--transition-smooth);
+    }
+    .footer-link:hover {
+      color: var(--accent-green);
+      padding-left: 4px;
+    }
+    .footer-contact-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+    .footer-contact-item svg {
+      width: 14px;
+      height: 14px;
+      color: var(--accent-green);
+    }
+    .footer-contact-item a {
+      color: var(--text-white);
+      text-decoration: none;
+      font-weight: 500;
+      transition: var(--transition-smooth);
+    }
+    .footer-contact-item a:hover {
+      color: var(--accent-green);
+    }
+    .footer-bottom {
+      border-top: 1px solid rgba(244, 242, 238, 0.03);
+      padding-top: 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+    .legal-name {
+      font-weight: 500;
+    }
+
+    /* RESPONSIVE DESIGN (MEDIA QUERIES) */
+    @media (max-width: 1024px) {
+      .hero-title {
+        font-size: 56px;
+      }
+      .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .process-timeline {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 32px;
+      }
+      .process-timeline::after {
+        display: none;
+      }
+      .testimonials-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .scheduler-container {
+        grid-template-columns: 1fr;
+        padding: 32px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links, .navbar .btn {
+        display: none;
+      }
+      .menu-toggle {
+        display: block;
+      }
+      .hero-title {
+        font-size: 40px;
+        letter-spacing: -1.5px;
+      }
+      .hero-subtitle {
+        font-size: 16px;
+      }
+      .stats-bar {
+        grid-template-columns: repeat(2, 1fr);
+        padding: 24px;
+      }
+      .stat-item:nth-child(2)::after {
+        display: none;
+      }
+      .services-grid {
+        grid-template-columns: 1fr;
+      }
+      .why-grid {
+        grid-template-columns: 1fr;
+      }
+      .testimonials-grid {
+        grid-template-columns: 1fr;
+      }
+      .footer-top {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+      .footer-bottom {
+        flex-direction: column;
+        gap: 16px;
+        text-align: center;
+      }
+      .date-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background Orbs -->
+  <div class="glow-container">
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-2"></div>
+    <div class="glow-orb glow-orb-3"></div>
+    <div class="glow-orb glow-orb-4"></div>
+  </div>
+
+  <!-- HEADER / NAVBAR -->
+  <header class="header">
+    <div class="container navbar">
+      <!-- Inline SVG Logo -->
+      <a href="#home" class="logo-container" aria-label="Vyntora AI homepage">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 120">
+          <defs>
+            <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#00e5a0"/>
+              <stop offset="100%" stop-color="#00b87a"/>
+            </linearGradient>
+          </defs>
+          <g transform="translate(4, 14)">
+            <polygon points="40,0 80,22 80,68 40,90 0,68 0,22" fill="none" stroke="#00e5a0" stroke-width="1.5" opacity="0.25"/>
+            <polygon points="40,16 62,40 40,64 18,40" fill="none" stroke="#00e5a0" stroke-width="1" opacity="0.45"/>
+            <path d="M20 26 L40 62 L60 26" fill="none" stroke="url(#g1)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="40" cy="0" r="3.5" fill="#00e5a0"/>
+            <circle cx="80" cy="22" r="2.5" fill="#00e5a0" opacity="0.5"/>
+            <circle cx="40" cy="90" r="3.5" fill="#00e5a0" opacity="0.7"/>
+            <circle cx="0" cy="22" r="2.5" fill="#00e5a0" opacity="0.5"/>
+            <circle cx="40" cy="44" r="2" fill="#00e5a0"/>
+          </g>
+          <text x="104" y="64" font-family="Arial Black, sans-serif" font-size="40" font-weight="800" letter-spacing="-2" fill="#f4f2ee">Vyntora</text>
+          <text x="314" y="64" font-family="Arial Black, sans-serif" font-size="40" font-weight="800" fill="#00e5a0">.</text>
+          <text x="326" y="64" font-family="Arial Black, sans-serif" font-size="40" font-weight="800" fill="#f4f2ee">AI</text>
+        </svg>
+      </a>
+
+      <!-- Desktop Links -->
+      <nav class="nav-links">
+        <a href="#home" class="nav-link">Home</a>
+        <a href="#services" class="nav-link">Services</a>
+        <a href="#process" class="nav-link">How It Works</a>
+        <a href="#why" class="nav-link">Why Us</a>
+        <a href="#testimonials" class="nav-link">Testimonials</a>
+        <a href="#scheduler" class="btn btn-primary" style="padding: 10px 20px; font-size: 13px;">Book a Call</a>
+      </nav>
+
+      <!-- Hamburger Menu Toggle Button -->
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+        <div class="hamburger-icon">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </button>
+    </div>
+  </header>
+
+  <!-- MOBILE DRAWER MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#home" class="nav-link mobile-nav-link">Home</a>
+    <a href="#services" class="nav-link mobile-nav-link">Services</a>
+    <a href="#process" class="nav-link mobile-nav-link">How It Works</a>
+    <a href="#why" class="nav-link mobile-nav-link">Why Us</a>
+    <a href="#testimonials" class="nav-link mobile-nav-link">Testimonials</a>
+    <a href="#scheduler" class="btn btn-primary mobile-nav-link">Book a Call</a>
+  </div>
+
+  <!-- 1. HERO SECTION -->
+  <section id="home" class="container">
+    <div class="hero-section">
+      <div class="hero-badge reveal">
+        <span class="dot"></span>
+        Now Accepting Q2 Consulting Clients
+      </div>
+      <h1 class="hero-title reveal" style="transition-delay: 0.1s;">
+        AI that powers your <span class="glow-text">next move</span>
+      </h1>
+      <p class="hero-subtitle reveal" style="transition-delay: 0.2s;">
+        An elite AI automation and consulting agency building intelligent agents, proprietary custom workflows, and high-performance acquisition systems for US & UK hyper-growth scaleups.
+      </p>
+      <div class="hero-ctas reveal" style="transition-delay: 0.3s;">
+        <a href="#scheduler" class="btn btn-primary">Book Free AI Audit</a>
+        <a href="#services" class="btn btn-secondary">Explore Our Services</a>
+      </div>
+
+      <!-- Stats Bar -->
+      <div class="stats-bar reveal" style="transition-delay: 0.4s;">
+        <div class="stat-item">
+          <div class="stat-num">48h<span class="plus">+</span></div>
+          <div class="stat-label">Rapid Prototyping</div>
+          <div class="stat-desc">First working model delivered</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">3x<span class="plus">+</span></div>
+          <div class="stat-label">Client Growth ROI</div>
+          <div class="stat-desc">Average efficiency gains</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">$25<span class="plus">/h</span></div>
+          <div class="stat-label">Effective Rate</div>
+          <div class="stat-desc">Flexible starter options</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">100<span class="plus">%</span></div>
+          <div class="stat-label">Remote Engineering</div>
+          <div class="stat-desc">Global timezone alignment</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. SERVICES SECTION -->
+  <section id="services">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Agency Capabilities</span>
+        <h2 class="section-title">Engineered for <span>Scalability & Impact</span></h2>
+        <p class="section-desc">We build enterprise-grade architectures that replace manual workflows with high-efficiency autonomous AI systems.</p>
+      </div>
+
+      <div class="services-grid">
+        <!-- Card 1 -->
+        <div class="service-card reveal">
+          <div class="service-body">
+            <div class="service-icon-wrapper">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+              </svg>
+            </div>
+            <h3 class="service-card-title">AI Automation</h3>
+            <p class="service-card-desc">End-to-end syncs of lead flows, CRM structures, database updating, and operations using custom-coded automated scripts.</p>
+          </div>
+          <div class="service-footer">
+            <div class="service-price-tag">From <span>$2,500</span></div>
+            <a href="#scheduler" class="service-explore-link">
+              Details
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="service-card reveal" style="transition-delay: 0.1s;">
+          <div class="service-body">
+            <div class="service-icon-wrapper">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+              </svg>
+            </div>
+            <h3 class="service-card-title">AI Chatbots</h3>
+            <p class="service-card-desc">High-context customer support and internal knowledge base agents trained on your documentation, operating 24/7 with human-grade accuracy.</p>
+          </div>
+          <div class="service-footer">
+            <div class="service-price-tag">From <span>$1,800</span></div>
+            <a href="#scheduler" class="service-explore-link">
+              Details
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="service-card reveal" style="transition-delay: 0.2s;">
+          <div class="service-body">
+            <div class="service-icon-wrapper">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+              </svg>
+            </div>
+            <h3 class="service-card-title">AI Model Training</h3>
+            <p class="service-card-desc">Fine-tuning open-source LLMs (Llama-3, Mistral) on custom internal company data. Maximize privacy and cost-efficiency over public APIs.</p>
+          </div>
+          <div class="service-footer">
+            <div class="service-price-tag">From <span>$4,500</span></div>
+            <a href="#scheduler" class="service-explore-link">
+              Details
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="service-card reveal">
+          <div class="service-body">
+            <div class="service-icon-wrapper">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z" />
+              </svg>
+            </div>
+            <h3 class="service-card-title">Performance Marketing</h3>
+            <p class="service-card-desc">Algorithmic paid advertising management. Automated ad creation, real-time bid adjustments, and high-precision targeting strategies.</p>
+          </div>
+          <div class="service-footer">
+            <div class="service-price-tag">From <span>$1,500/mo</span></div>
+            <a href="#scheduler" class="service-explore-link">
+              Details
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="service-card reveal" style="transition-delay: 0.1s;">
+          <div class="service-body">
+            <div class="service-icon-wrapper">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
+              </svg>
+            </div>
+            <h3 class="service-card-title">SEO & Content</h3>
+            <p class="service-card-desc">Programmatic SEO pipelines combined with high-quality AI editing to scale organic acquisition with zero keyword keyword spam.</p>
+          </div>
+          <div class="service-footer">
+            <div class="service-price-tag">From <span>$1,200/mo</span></div>
+            <a href="#scheduler" class="service-explore-link">
+              Details
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Card 6 -->
+        <div class="service-card reveal" style="transition-delay: 0.2s;">
+          <div class="service-body">
+            <div class="service-icon-wrapper">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+              </svg>
+            </div>
+            <h3 class="service-card-title">AI Consulting</h3>
+            <p class="service-card-desc">Full workflow audits, training sessions, legacy software modernization, and custom architecture roadmap designs for tech leadership.</p>
+          </div>
+          <div class="service-footer">
+            <div class="service-price-tag">From <span>$150/hr</span></div>
+            <a href="#scheduler" class="service-explore-link">
+              Details
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. HOW IT WORKS SECTION -->
+  <section id="process">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Our Workflow</span>
+        <h2 class="section-title">From <span>Strategy to Deployment</span></h2>
+        <p class="section-desc">We build clean, robust integrations. Here is how we guarantee delivery without code bloat or scope creep.</p>
+      </div>
+
+      <div class="process-timeline">
+        <!-- Step 1 -->
+        <div class="process-card reveal">
+          <div class="process-num">01</div>
+          <h3 class="process-title">Audit Call</h3>
+          <p class="process-desc">A rapid 15-minute scoping call to map out bottlenecks, operational leaks, and high-impact automation target areas.</p>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="process-card reveal" style="transition-delay: 0.1s;">
+          <div class="process-num">02</div>
+          <h3 class="process-title">Proposal</h3>
+          <p class="process-desc">Within 48 hours, we present a detailed design plan, complete fixed scope pricing, and delivery timelines.</p>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="process-card reveal" style="transition-delay: 0.2s;">
+          <div class="process-num">03</div>
+          <h3 class="process-title">Build Phase</h3>
+          <p class="process-desc">Weekly sprints with continuous deployment. Stay updated with a dedicated Slack channel and direct engineer access.</p>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="process-card reveal" style="transition-delay: 0.3s;">
+          <div class="process-num">04</div>
+          <h3 class="process-title">Support</h3>
+          <p class="process-desc">We don't launch and run. We provide comprehensive team onboarding, continuous tuning, and 24/7 priority SLAs.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. WHY VYNTORA SECTION -->
+  <section id="why">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">The Vyntora Standard</span>
+        <h2 class="section-title">Built Different. <span>Engineered to Last.</span></h2>
+        <p class="section-desc">Why agencies trust Barg Info Solutions and the Vyntora team to architect their intelligence pipelines.</p>
+      </div>
+
+      <div class="why-grid">
+        <!-- Card 1 -->
+        <div class="why-card reveal">
+          <div class="why-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+            </svg>
+          </div>
+          <div class="why-info">
+            <h3 class="why-card-title">Enterprise-Grade Quality</h3>
+            <p class="why-card-desc">No flimsy, unstable no-code toys. We write clean, production-grade JavaScript, Python, and SQL that seamlessly merges with your backend architecture.</p>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="why-card reveal" style="transition-delay: 0.1s;">
+          <div class="why-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M12 16v1M10 11h2m0 0h2" />
+            </svg>
+          </div>
+          <div class="why-info">
+            <h3 class="why-card-title">Fixed Project Scope</h3>
+            <p class="why-card-desc">Zero surprises or runaway developer hourly costs. You pay for exact deliverables and concrete results, negotiated transparently before we write any code.</p>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="why-card reveal">
+          <div class="why-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+          </div>
+          <div class="why-info">
+            <h3 class="why-card-title">100% IP Ownership</h3>
+            <p class="why-card-desc">You completely own the proprietary models, automated structures, database schemas, and source code. Zero vendor lock-in. Everything is pushed to your repositories weekly.</p>
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="why-card reveal" style="transition-delay: 0.1s;">
+          <div class="why-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
+          </div>
+          <div class="why-info">
+            <h3 class="why-card-title">Results-Focused Engineering</h3>
+            <p class="why-card-desc">We do not track hours or lines of code written. We measure our success on customer support resolution rates, overhead time saved, and revenue generated.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. MEETING SCHEDULER SECTION -->
+  <section id="scheduler" class="container">
+    <div class="scheduler-container reveal">
+      <!-- Left side: Info & Meta -->
+      <div class="scheduler-info">
+        <div class="scheduler-info-top">
+          <span class="section-tag" style="margin-bottom: 8px;">Claim Your Slot</span>
+          <h3>Book Your Free<br>AI Audit Call</h3>
+          <p>Let's map out your systems and identify the exact bottlenecks holding your team back from scaling.</p>
+          
+          <div class="scheduler-benefits">
+            <div class="benefit-item">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+              </svg>
+              15-Min System Scoping Session
+            </div>
+            <div class="benefit-item">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+              </svg>
+              Feasibility & ROI Estimate Included
+            </div>
+            <div class="benefit-item">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+              </svg>
+              Custom Engineering Roadmap Offered
+            </div>
+          </div>
+        </div>
+
+        <div class="scheduler-info-bottom">
+          <div class="scheduler-footer-meta">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            Available Mon–Fri, 9:00 AM – 6:00 PM IST
+          </div>
+        </div>
+      </div>
+
+      <!-- Right side: Interactive Form -->
+      <div class="scheduler-form-wrapper">
+        
+        <!-- Form view -->
+        <div id="bookingFormContainer">
+          <form id="bookingForm" novalidate>
+            
+            <!-- Step 1: Date Choice -->
+            <div class="step-title">
+              <span>01.</span> Select Available Date
+            </div>
+            <div class="date-grid" id="dateGrid">
+              <!-- Dynamically populated weekdays -->
+            </div>
+
+            <!-- Step 2: Time Choice -->
+            <div class="step-title">
+              <span>02.</span> Select Time Slot (IST)
+            </div>
+            <div class="time-container">
+              <div class="time-grid" id="timeGrid">
+                <!-- Dynamically populated timeslots -->
+              </div>
+            </div>
+
+            <!-- Step 3: Details -->
+            <div class="step-title">
+              <span>03.</span> Your Information
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="clientName">Full Name</label>
+              <input type="text" id="clientName" class="form-input" placeholder="e.g. John Doe" required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="clientEmail">Email Address</label>
+              <input type="email" id="clientEmail" class="form-input" placeholder="e.g. john@company.com" required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="clientCompany">Company Name</label>
+              <input type="text" id="clientCompany" class="form-input" placeholder="e.g. Acme Corp" required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="clientNeed">How can we help?</label>
+              <select id="clientNeed" class="form-input" required>
+                <option value="" disabled selected>Select an option</option>
+                <option value="AI Automation">AI Automation (Workflows / Syncs)</option>
+                <option value="AI Chatbots">AI Chatbots & Agents</option>
+                <option value="AI Model Training">AI Model Training & Fine-Tuning</option>
+                <option value="Performance Marketing">Performance Marketing</option>
+                <option value="SEO & Content">SEO & Content Optimization</option>
+                <option value="AI Consulting">AI Consulting & Scoping</option>
+                <option value="Other">Other Custom Development</option>
+              </select>
+            </div>
+
+            <div class="form-error" id="formError">Please fill out all required fields.</div>
+
+            <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 10px;">
+              Confirm My Booking Slot
+            </button>
+          </form>
+        </div>
+
+        <!-- Success Confirmation View -->
+        <div id="confirmationView" class="confirmation-view">
+          <div class="confirmation-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+            </svg>
+          </div>
+          <h4 class="confirmation-title">Booking Confirmed!</h4>
+          <p class="confirmation-desc" id="confirmText">
+            We'll confirm your slot within 2 hours at your email.
+          </p>
+          <div class="confirmation-details">
+            <div class="conf-row">
+              <span class="conf-label">Client Name:</span>
+              <span class="conf-val" id="confClientName">-</span>
+            </div>
+            <div class="conf-row">
+              <span class="conf-label">Date Selected:</span>
+              <span class="conf-val" id="confDate">-</span>
+            </div>
+            <div class="conf-row">
+              <span class="conf-label">Time Selected:</span>
+              <span class="conf-val" id="confTime">-</span>
+            </div>
+            <div class="conf-row">
+              <span class="conf-label">Service Focus:</span>
+              <span class="conf-val" id="confNeed">-</span>
+            </div>
+          </div>
+          <button type="button" class="btn btn-secondary" onclick="resetBookingForm()" style="width: 100%;">
+            Schedule Another Audit
+          </button>
+        </div>
+
+      </div>
+    </div>
+    
+    <!-- Admin Dashboard Toggle Button -->
+    <div class="admin-toggle-wrapper">
+      <button class="admin-toggle-btn" onclick="openAdminModal()">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
+        </svg>
+        Admin Console
+      </button>
+    </div>
+  </section>
+
+  <!-- 6. TESTIMONIALS SECTION -->
+  <section id="testimonials">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Client Feedback</span>
+        <h2 class="section-title">Trusted By <span>Global Founders</span></h2>
+        <p class="section-desc">See how companies scale operations, reduce manual hours, and hit target metrics using our automated architectures.</p>
+      </div>
+
+      <div class="testimonials-grid">
+        <!-- Card 1 -->
+        <div class="testimonial-card reveal">
+          <div>
+            <div class="testimonial-stars">
+              <!-- 5 Stars -->
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
+            </div>
+            <p class="testimonial-quote">
+              "Vyntora automated our complete customer support pipeline. Our response time dropped from 4 hours to 8 seconds, saving us over $12,000/mo."
+            </p>
+          </div>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">DK</div>
+            <div>
+              <div class="author-info-name">David K.</div>
+              <div class="author-info-role">COO of Nexus SaaS (UK)</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="testimonial-card reveal" style="transition-delay: 0.1s;">
+          <div>
+            <div class="testimonial-stars">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
+            </div>
+            <p class="testimonial-quote">
+              "The programmatic SEO setup they built brought in 150k+ monthly organic visitors in less than 90 days. Absolute game-changers."
+            </p>
+          </div>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">SL</div>
+            <div>
+              <div class="author-info-name">Sarah L.</div>
+              <div class="author-info-role">Head of Growth at Orbit Media (US)</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="testimonial-card reveal" style="transition-delay: 0.2s;">
+          <div>
+            <div class="testimonial-stars">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
+            </div>
+            <p class="testimonial-quote">
+              "Their custom model training allowed us to parse medical PDFs with 99.4% accuracy. Enterprise-grade engineering, highly recommend."
+            </p>
+          </div>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">JR</div>
+            <div>
+              <div class="author-info-name">Dr. Julian R.</div>
+              <div class="author-info-role">CTO of HealthFlow (US)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="#home" class="logo-container" aria-label="Vyntora AI homepage">
+            <!-- Footer SVG Logo -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 120">
+              <defs>
+                <linearGradient id="g1-footer" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#00e5a0"/>
+                  <stop offset="100%" stop-color="#00b87a"/>
+                </linearGradient>
+              </defs>
+              <g transform="translate(4, 14)">
+                <polygon points="40,0 80,22 80,68 40,90 0,68 0,22" fill="none" stroke="#00e5a0" stroke-width="1.5" opacity="0.25"/>
+                <polygon points="40,16 62,40 40,64 18,40" fill="none" stroke="#00e5a0" stroke-width="1" opacity="0.45"/>
+                <path d="M20 26 L40 62 L60 26" fill="none" stroke="url(#g1-footer)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="40" cy="0" r="3.5" fill="#00e5a0"/>
+                <circle cx="80" cy="22" r="2.5" fill="#00e5a0" opacity="0.5"/>
+                <circle cx="40" cy="90" r="3.5" fill="#00e5a0" opacity="0.7"/>
+                <circle cx="0" cy="22" r="2.5" fill="#00e5a0" opacity="0.5"/>
+                <circle cx="40" cy="44" r="2" fill="#00e5a0"/>
+              </g>
+              <text x="104" y="64" font-family="Arial Black, sans-serif" font-size="40" font-weight="800" letter-spacing="-2" fill="#f4f2ee">Vyntora</text>
+              <text x="314" y="64" font-family="Arial Black, sans-serif" font-size="40" font-weight="800" fill="#00e5a0">.</text>
+              <text x="326" y="64" font-family="Arial Black, sans-serif" font-size="40" font-weight="800" fill="#f4f2ee">AI</text>
+            </svg>
+          </a>
+          <p class="footer-tagline">AI that powers your next move. Custom intelligent automation architectures for hyper-growth brands.</p>
+        </div>
+
+        <div>
+          <h5 class="footer-links-title">Capabilities</h5>
+          <ul class="footer-links-list">
+            <li><a href="#services" class="footer-link">AI Automation</a></li>
+            <li><a href="#services" class="footer-link">AI Chatbots</a></li>
+            <li><a href="#services" class="footer-link">Model Fine-Tuning</a></li>
+            <li><a href="#services" class="footer-link">Performance Marketing</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h5 class="footer-links-title">Get In Touch</h5>
+          <ul class="footer-links-list">
+            <li class="footer-contact-item">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+              <a href="mailto:contact@vyntora.live">contact@vyntora.live</a>
+            </li>
+            <li class="footer-contact-item" style="margin-top: 8px;">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+              </svg>
+              vyntora.live
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>
+          &copy; 2025 Vyntora AI. Operated by <span class="legal-name">Barg Info Solutions Pvt Ltd</span>. All rights reserved.
+        </div>
+        <div>
+          Global Timezone Alignment &bull; UK & US Client Portal
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- PASSWORD PROTECTED ADMIN PANEL MODAL -->
+  <div id="adminModal" class="admin-modal">
+    <div class="admin-modal-card">
+      <div class="admin-modal-header">
+        <h4 class="admin-modal-title">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+          </svg>
+          Vyntora Admin Console
+        </h4>
+        <button class="admin-modal-close" onclick="closeAdminModal()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+      <div class="admin-modal-body">
+        
+        <!-- Password prompt section -->
+        <div id="adminPasswordView" class="admin-password-view">
+          <p>Please enter the administrative credentials to view booking records.</p>
+          <div class="form-group">
+            <input type="password" id="adminPasswordInput" class="form-input" placeholder="Admin Password" style="text-align: center;">
+            <div id="adminPassError" class="admin-pass-error">Incorrect password. Please try again.</div>
+          </div>
+          <button type="button" class="btn btn-purple" onclick="verifyAdminPassword()" style="width: 100%;">
+            Verify Credentials
+          </button>
+        </div>
+
+        <!-- Dashboard dashboard panel -->
+        <div id="adminDashboardView" class="admin-dashboard-view">
+          
+          <div class="admin-stats-summary">
+            <div class="admin-stat-box">
+              <div class="admin-stat-label">Total Bookings</div>
+              <div id="statTotalBookings" class="admin-stat-num">0</div>
+            </div>
+            <div class="admin-stat-box">
+              <div class="admin-stat-label">Next Scheduled</div>
+              <div id="statNextBooking" class="admin-stat-num" style="font-size: 16px; font-family: var(--font-body); font-weight: 500;">None</div>
+            </div>
+          </div>
+
+          <div class="admin-table-wrapper">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Client</th>
+                  <th>Company</th>
+                  <th>Email</th>
+                  <th>Service Focus</th>
+                  <th>Date &amp; Time (IST)</th>
+                  <th style="text-align: center; width: 60px;">Action</th>
+                </tr>
+              </thead>
+              <tbody id="bookingsTableBody">
+                <!-- Dynamically filled table -->
+              </tbody>
+            </table>
+            <div id="bookingsTableEmpty" class="admin-empty-state">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              <p>No bookings stored in this system yet.</p>
+            </div>
+          </div>
+
+          <div class="admin-actions">
+            <button type="button" class="btn btn-secondary" onclick="simulateBookings()">
+              Simulate Demo Bookings
+            </button>
+            <button type="button" class="btn btn-primary" style="background: #ff6b6b; box-shadow: none;" onclick="clearAllBookings()">
+              Clear All Data
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT LOGIC -->
+  <script>
+    // MOBILE NAVIGATION DRAWER
+    const menuToggle = document.getElementById('menuToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+
+    if (menuToggle && mobileMenu) {
+      menuToggle.addEventListener('click', () => {
+        menuToggle.classList.toggle('active');
+        mobileMenu.classList.toggle('active');
+      });
+
+      mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          menuToggle.classList.remove('active');
+          mobileMenu.classList.remove('active');
+        });
+      });
+    }
+
+    // SCROLL REVEAL (IntersectionObserver)
+    const revealElements = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: "0px 0px -40px 0px"
+    });
+
+    revealElements.forEach(el => revealObserver.observe(el));
+
+    // SCHEDULER WIDGET GENERATION
+    let selectedDateStr = "";
+    let selectedTimeStr = "";
+
+    // Generate weekdays (excluding Sat & Sun) starting from tomorrow (or today if weekday during hours)
+    function generateSchedulerDates() {
+      const dateGrid = document.getElementById('dateGrid');
+      if (!dateGrid) return;
+      
+      dateGrid.innerHTML = "";
+      
+      const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+      const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+      
+      // Let's use the local simulated date: Saturday, May 30, 2026
+      // In production, new Date() resolves to current client date.
+      // We will initialize from current actual date
+      let current = new Date("2026-05-30T15:00:00+05:30"); // Target user's state date
+      
+      let count = 0;
+      let iterations = 0;
+      
+      // Generate the next 8 available weekdays
+      while (count < 8 && iterations < 30) {
+        iterations++;
+        // Move to next day
+        current.setDate(current.getDate() + 1);
+        const dayIdx = current.getDay();
+        
+        // Skip Sat (6) and Sun (0)
+        if (dayIdx !== 0 && dayIdx !== 6) {
+          const dateVal = `${current.getFullYear()}-${String(current.getMonth() + 1).padStart(2, '0')}-${String(current.getDate()).padStart(2, '0')}`;
+          
+          const slot = document.createElement('div');
+          slot.className = 'date-slot';
+          if (count === 0) {
+            slot.classList.add('selected');
+            selectedDateStr = dateVal;
+          }
+          
+          slot.dataset.date = dateVal;
+          
+          slot.innerHTML = `
+            <div class="date-slot-day">${weekdays[dayIdx]}</div>
+            <div class="date-slot-num">${current.getDate()}</div>
+            <div class="date-slot-month">${months[current.getMonth()]}</div>
+          `;
+          
+          slot.addEventListener('click', () => {
+            document.querySelectorAll('.date-slot').forEach(el => el.classList.remove('selected'));
+            slot.classList.add('selected');
+            selectedDateStr = dateVal;
+            generateTimeSlots(dateVal);
+          });
+          
+          dateGrid.appendChild(slot);
+          count++;
+        }
+      }
+      
+      // Trigger time slot generation for default selected day
+      if (selectedDateStr) {
+        generateTimeSlots(selectedDateStr);
+      }
+    }
+
+    // Generate timeslots from 9 AM to 6 PM IST
+    function generateTimeSlots(dateStr) {
+      const timeGrid = document.getElementById('timeGrid');
+      if (!timeGrid) return;
+      
+      timeGrid.innerHTML = "";
+      selectedTimeStr = ""; // reset selection
+      
+      const baseSlots = [
+        { label: "9:00 AM", hour: 9 },
+        { label: "10:00 AM", hour: 10 },
+        { label: "11:00 AM", hour: 11 },
+        { label: "12:00 PM", hour: 12 },
+        { label: "1:00 PM", hour: 13 },
+        { label: "2:00 PM", hour: 14 },
+        { label: "3:00 PM", hour: 15 },
+        { label: "4:00 PM", hour: 16 },
+        { label: "5:00 PM", hour: 17 },
+        { label: "6:00 PM", hour: 18 }
+      ];
+      
+      // Get existing bookings to disable booked timeslots
+      const bookings = JSON.parse(localStorage.getItem('vyntora_bookings') || '[]');
+      
+      baseSlots.forEach(slotInfo => {
+        const timeVal = slotInfo.label;
+        
+        // Check if slot is already booked for this date
+        const isBooked = bookings.some(b => b.date === dateStr && b.time === timeVal);
+        
+        // Also check if selected day is "today" and block past timeslots
+        let isPast = false;
+        const todayStr = "2026-05-30"; // Current simulated date
+        const currentHour = 15; // 3:00 PM IST
+        
+        if (dateStr === todayStr && slotInfo.hour <= currentHour) {
+          isPast = true;
+        }
+
+        const slot = document.createElement('div');
+        slot.className = 'time-slot';
+        slot.textContent = timeVal;
+        
+        if (isBooked || isPast) {
+          slot.classList.add('disabled');
+        } else {
+          slot.addEventListener('click', () => {
+            document.querySelectorAll('.time-slot').forEach(el => el.classList.remove('selected'));
+            slot.classList.add('selected');
+            selectedTimeStr = timeVal;
+          });
+        }
+        
+        timeGrid.appendChild(slot);
+      });
+    }
+
+    // FORM SUBMISSION & LOCALSTORAGE
+    const bookingForm = document.getElementById('bookingForm');
+    const bookingFormContainer = document.getElementById('bookingFormContainer');
+    const confirmationView = document.getElementById('confirmationView');
+    const formError = document.getElementById('formError');
+
+    if (bookingForm) {
+      bookingForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        formError.style.display = 'none';
+
+        // Get details
+        const name = document.getElementById('clientName').value.trim();
+        const email = document.getElementById('clientEmail').value.trim();
+        const company = document.getElementById('clientCompany').value.trim();
+        const need = document.getElementById('clientNeed').value;
+
+        // Basic validations
+        if (!name || !email || !company || !need || !selectedDateStr || !selectedTimeStr) {
+          formError.textContent = "Please fill out all fields and select a date/time.";
+          formError.style.display = 'block';
+          return;
+        }
+
+        // Email validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+          formError.textContent = "Please enter a valid email address.";
+          formError.style.display = 'block';
+          return;
+        }
+
+        // Create booking object
+        const booking = {
+          id: 'b_' + Date.now(),
+          name,
+          email,
+          company,
+          need,
+          date: selectedDateStr,
+          time: selectedTimeStr,
+          timestamp: new Date().toISOString()
+        };
+
+        // Save to LocalStorage
+        const bookings = JSON.parse(localStorage.getItem('vyntora_bookings') || '[]');
+        bookings.push(booking);
+        localStorage.setItem('vyntora_bookings', JSON.stringify(bookings));
+
+        // Format Date for confirmation screen (e.g. 2026-06-01 -> Jun 1, 2026)
+        const dObj = new Date(selectedDateStr + "T00:00:00");
+        const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        const formattedDate = `${months[dObj.getMonth()]} ${dObj.getDate()}, ${dObj.getFullYear()}`;
+
+        // Populate Confirmation Details
+        document.getElementById('confClientName').textContent = name;
+        document.getElementById('confDate').textContent = formattedDate;
+        document.getElementById('confTime').textContent = selectedTimeStr + " (IST)";
+        document.getElementById('confNeed').textContent = need;
+        document.getElementById('confirmText').textContent = `We'll confirm your slot within 2 hours at ${email}`;
+
+        // Swap Views
+        bookingFormContainer.style.display = 'none';
+        confirmationView.style.display = 'flex';
+      });
+    }
+
+    function resetBookingForm() {
+      if (bookingForm) {
+        bookingForm.reset();
+      }
+      bookingFormContainer.style.display = 'block';
+      confirmationView.style.display = 'none';
+      generateSchedulerDates();
+    }
+
+    // ADMIN DIALOG CREDENTIALS & PANELS
+    const adminModal = document.getElementById('adminModal');
+    const adminPasswordView = document.getElementById('adminPasswordView');
+    const adminDashboardView = document.getElementById('adminDashboardView');
+    const adminPasswordInput = document.getElementById('adminPasswordInput');
+    const adminPassError = document.getElementById('adminPassError');
+
+    function openAdminModal() {
+      if (adminModal) {
+        adminModal.style.display = 'flex';
+        // Clear previous state
+        adminPasswordInput.value = "";
+        adminPassError.style.display = 'none';
+        adminPasswordView.style.display = 'block';
+        adminDashboardView.style.display = 'none';
+      }
+    }
+
+    function closeAdminModal() {
+      if (adminModal) {
+        adminModal.style.display = 'none';
+      }
+    }
+
+    function verifyAdminPassword() {
+      if (adminPasswordInput.value === "vyntora2025") {
+        adminPasswordView.style.display = 'none';
+        adminDashboardView.style.display = 'block';
+        renderAdminDashboard();
+      } else {
+        adminPassError.style.display = 'block';
+      }
+    }
+
+    // Render bookings database inside dashboard panel
+    function renderAdminDashboard() {
+      const bookings = JSON.parse(localStorage.getItem('vyntora_bookings') || '[]');
+      const tableBody = document.getElementById('bookingsTableBody');
+      const tableEmpty = document.getElementById('bookingsTableEmpty');
+      const totalCount = document.getElementById('statTotalBookings');
+      const nextBooking = document.getElementById('statNextBooking');
+      
+      if (!tableBody) return;
+      
+      tableBody.innerHTML = "";
+      totalCount.textContent = bookings.length;
+      
+      if (bookings.length === 0) {
+        tableEmpty.style.display = 'block';
+        nextBooking.textContent = "None";
+        return;
+      }
+      
+      tableEmpty.style.display = 'none';
+
+      // Sort chronologically
+      bookings.sort((a, b) => {
+        const datetimeA = new Date(`${a.date}T${convertTo24h(a.time)}`);
+        const datetimeB = new Date(`${b.date}T${convertTo24h(b.time)}`);
+        return datetimeA - datetimeB;
+      });
+
+      // Display next scheduled appointment
+      const firstNext = bookings[0];
+      const dObj = new Date(firstNext.date + "T00:00:00");
+      const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+      nextBooking.textContent = `${months[dObj.getMonth()]} ${dObj.getDate()} at ${firstNext.time}`;
+
+      bookings.forEach(booking => {
+        const row = document.createElement('tr');
+        
+        const dObj = new Date(booking.date + "T00:00:00");
+        const formattedDate = `${months[dObj.getMonth()]} ${dObj.getDate()}, ${dObj.getFullYear()}`;
+
+        row.innerHTML = `
+          <td class="admin-client-cell">${escapeHTML(booking.name)}</td>
+          <td>${escapeHTML(booking.company)}</td>
+          <td><a href="mailto:${escapeHTML(booking.email)}" style="color: var(--color-purple); text-decoration: none;">${escapeHTML(booking.email)}</a></td>
+          <td><span class="admin-badge-need">${escapeHTML(booking.need)}</span></td>
+          <td>${formattedDate} at ${booking.time}</td>
+          <td style="text-align: center;">
+            <button class="btn-delete" onclick="deleteBooking('${booking.id}')" aria-label="Delete booking">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+              </svg>
+            </button>
+          </td>
+        `;
+        tableBody.appendChild(row);
+      });
+    }
+
+    function deleteBooking(id) {
+      let bookings = JSON.parse(localStorage.getItem('vyntora_bookings') || '[]');
+      bookings = bookings.filter(b => b.id !== id);
+      localStorage.setItem('vyntora_bookings', JSON.stringify(bookings));
+      renderAdminDashboard();
+      generateTimeSlots(selectedDateStr); // update slots availability
+    }
+
+    function clearAllBookings() {
+      if (confirm("Are you sure you want to permanently erase all scheduler entries?")) {
+        localStorage.setItem('vyntora_bookings', JSON.stringify([]));
+        renderAdminDashboard();
+        generateTimeSlots(selectedDateStr);
+      }
+    }
+
+    // Populate mock demo slots for test display
+    function simulateBookings() {
+      const demoBookings = [
+        {
+          id: 'b_demo1',
+          name: 'Sarah Connor',
+          email: 'sconnor@cyberdyne.co.uk',
+          company: 'Cyberdyne Systems',
+          need: 'AI Model Training',
+          date: '2026-06-01',
+          time: '10:00 AM',
+          timestamp: new Date().toISOString()
+        },
+        {
+          id: 'b_demo2',
+          name: 'Miles Dyson',
+          email: 'miles.d@skynet.com',
+          company: 'Skynet Solutions',
+          need: 'AI Automation',
+          date: '2026-06-02',
+          time: '2:00 PM',
+          timestamp: new Date().toISOString()
+        },
+        {
+          id: 'b_demo3',
+          name: 'Thomas Anderson',
+          email: 'neo@metacortex.com',
+          company: 'Meta Cortex US',
+          need: 'AI Consulting',
+          date: '2026-06-03',
+          time: '4:00 PM',
+          timestamp: new Date().toISOString()
+        }
+      ];
+
+      localStorage.setItem('vyntora_bookings', JSON.stringify(demoBookings));
+      renderAdminDashboard();
+      generateTimeSlots(selectedDateStr);
+    }
+
+    // Helper functions
+    function convertTo24h(timeStr) {
+      const [time, modifier] = timeStr.split(' ');
+      let [hours, minutes] = time.split(':');
+      if (hours === '12') {
+        hours = '00';
+      }
+      if (modifier === 'PM') {
+        hours = parseInt(hours, 10) + 12;
+      }
+      return `${String(hours).padStart(2, '0')}:${minutes}:00`;
+    }
+
+    function escapeHTML(str) {
+      return str.replace(/[&<>'"]/g, 
+        tag => ({
+          '&': '&amp;',
+          '<': '&lt;',
+          '>': '&gt;',
+          "'": '&#39;',
+          '"': '&quot;'
+        }[tag] || tag)
+      );
+    }
+
+    // INITIALIZATION
+    window.addEventListener('DOMContentLoaded', () => {
+      generateSchedulerDates();
+    });
+  </script>
+</body>
+</html>
