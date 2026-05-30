@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vyntora AI — Intelligent Systems for Forward-Moving Businesses</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #080810;
+    --white: #f4f2ee;
+    --accent: #00e5a0;
+    --accent2: #7b5cff;
+    --gray: #a0a0b0;
+    --card-bg: #10101e;
+    --border: rgba(255,255,255,0.07);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* NOISE TEXTURE */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.4;
+  }
+
+  /* GLOW ORBS */
+  .orb {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(120px);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .orb-1 { width: 600px; height: 600px; background: rgba(0,229,160,0.06); top: -200px; right: -100px; }
+  .orb-2 { width: 500px; height: 500px; background: rgba(123,92,255,0.07); bottom: 200px; left: -150px; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 60px;
+    background: rgba(8,8,16,0.7);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+  .logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 22px;
+    letter-spacing: -0.5px;
+    color: var(--white);
+    text-decoration: none;
+  }
+  .logo span { color: var(--accent); }
+  nav ul { list-style: none; display: flex; gap: 36px; }
+  nav ul a {
+    color: var(--gray);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    transition: color 0.2s;
+  }
+  nav ul a:hover { color: var(--white); }
+  .nav-cta {
+    background: var(--accent);
+    color: var(--black) !important;
+    padding: 10px 22px;
+    border-radius: 6px;
+    font-weight: 600 !important;
+    font-size: 14px !important;
+    transition: opacity 0.2s !important;
+  }
+  .nav-cta:hover { opacity: 0.85; }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center;
+    padding: 120px 40px 80px;
+    z-index: 1;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(0,229,160,0.08);
+    border: 1px solid rgba(0,229,160,0.2);
+    border-radius: 100px;
+    padding: 6px 16px;
+    font-size: 13px;
+    color: var(--accent);
+    font-weight: 500;
+    margin-bottom: 32px;
+    animation: fadeUp 0.8s ease forwards;
+    opacity: 0;
+  }
+  .hero-badge::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(42px, 7vw, 88px);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -2px;
+    max-width: 900px;
+    margin-bottom: 28px;
+    animation: fadeUp 0.8s 0.15s ease forwards;
+    opacity: 0;
+  }
+  h1 em {
+    font-style: normal;
+    color: var(--accent);
+  }
+  .hero-sub {
+    font-size: 18px;
+    color: var(--gray);
+    max-width: 540px;
+    font-weight: 300;
+    margin-bottom: 48px;
+    animation: fadeUp 0.8s 0.3s ease forwards;
+    opacity: 0;
+  }
+  .hero-btns {
+    display: flex; gap: 16px; flex-wrap: wrap; justify-content: center;
+    animation: fadeUp 0.8s 0.45s ease forwards;
+    opacity: 0;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: var(--black);
+    padding: 16px 36px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 15px;
+    text-decoration: none;
+    transition: transform 0.2s, opacity 0.2s;
+    letter-spacing: 0.2px;
+  }
+  .btn-primary:hover { transform: translateY(-2px); opacity: 0.9; }
+  .btn-secondary {
+    border: 1px solid var(--border);
+    color: var(--white);
+    padding: 16px 36px;
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 15px;
+    text-decoration: none;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .btn-secondary:hover { border-color: rgba(255,255,255,0.3); background: rgba(255,255,255,0.04); }
+
+  /* STATS */
+  .stats {
+    display: flex; gap: 0;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 80px auto 0;
+    max-width: 700px;
+    width: 100%;
+    animation: fadeUp 0.8s 0.6s ease forwards;
+    opacity: 0;
+  }
+  .stat {
+    flex: 1;
+    padding: 28px 24px;
+    text-align: center;
+    border-right: 1px solid var(--border);
+  }
+  .stat:last-child { border-right: none; }
+  .stat-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--white);
+    display: block;
+  }
+  .stat-num span { color: var(--accent); }
+  .stat-label { font-size: 12px; color: var(--gray); font-weight: 400; margin-top: 4px; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* SECTION */
+  section { position: relative; z-index: 1; }
+  .section-inner { max-width: 1100px; margin: 0 auto; padding: 100px 40px; }
+  .section-tag {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+  h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(32px, 4vw, 52px);
+    font-weight: 700;
+    letter-spacing: -1.5px;
+    line-height: 1.1;
+    margin-bottom: 16px;
+  }
+  .section-sub {
+    color: var(--gray);
+    font-size: 17px;
+    max-width: 520px;
+    font-weight: 300;
+    margin-bottom: 64px;
+  }
+
+  /* SERVICES */
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+  .service-card {
+    background: var(--card-bg);
+    padding: 44px 36px;
+    transition: background 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .service-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s;
+  }
+  .service-card:hover { background: #14142a; }
+  .service-card:hover::before { transform: scaleX(1); }
+  .service-icon {
+    width: 48px; height: 48px;
+    border-radius: 10px;
+    background: rgba(0,229,160,0.08);
+    border: 1px solid rgba(0,229,160,0.15);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    margin-bottom: 24px;
+  }
+  .service-card h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    letter-spacing: -0.5px;
+  }
+  .service-card p { color: var(--gray); font-size: 14px; line-height: 1.7; }
+  .service-price {
+    display: inline-block;
+    margin-top: 20px;
+    font-size: 13px;
+    color: var(--accent);
+    font-weight: 500;
+    border: 1px solid rgba(0,229,160,0.2);
+    padding: 4px 12px;
+    border-radius: 100px;
+  }
+
+  /* HOW IT WORKS */
+  .how-bg { background: #0a0a18; }
+  .steps { display: flex; flex-direction: column; gap: 0; max-width: 700px; }
+  .step {
+    display: flex; gap: 32px;
+    padding: 36px 0;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+  .step:last-child { border-bottom: none; }
+  .step-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 48px;
+    font-weight: 800;
+    color: rgba(255,255,255,0.05);
+    line-height: 1;
+    min-width: 60px;
+    letter-spacing: -2px;
+  }
+  .step-content h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    letter-spacing: -0.3px;
+  }
+  .step-content p { color: var(--gray); font-size: 15px; }
+
+  /* WHY US */
+  .why-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+  .why-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 32px;
+    transition: border-color 0.3s;
+  }
+  .why-card:hover { border-color: rgba(0,229,160,0.2); }
+  .why-card h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    letter-spacing: -0.3px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .why-card h3::before {
+    content: '✓';
+    width: 22px; height: 22px;
+    background: rgba(0,229,160,0.12);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px;
+    color: var(--accent);
+    flex-shrink: 0;
+  }
+  .why-card p { color: var(--gray); font-size: 14px; line-height: 1.7; }
+
+  /* CTA */
+  .cta-section {
+    background: linear-gradient(135deg, #0e0e22 0%, #0a1a14 100%);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .cta-inner {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 100px 40px;
+    text-align: center;
+  }
+  .cta-inner h2 { margin-bottom: 20px; }
+  .cta-inner p { color: var(--gray); font-size: 17px; margin-bottom: 40px; font-weight: 300; }
+
+  /* FOOTER */
+  footer {
+    padding: 48px 60px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 1;
+    position: relative;
+  }
+  footer p { color: var(--gray); font-size: 13px; }
+  .footer-links { display: flex; gap: 28px; }
+  .footer-links a { color: var(--gray); font-size: 13px; text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--white); }
+
+  /* SCROLL REVEAL */
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 768px) {
+    nav { padding: 16px 24px; }
+    nav ul { display: none; }
+    .section-inner { padding: 70px 24px; }
+    .services-grid { grid-template-columns: 1fr; }
+    .why-grid { grid-template-columns: 1fr; }
+    .stats { flex-direction: column; }
+    .stat { border-right: none; border-bottom: 1px solid var(--border); }
+    footer { flex-direction: column; gap: 20px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+
+<nav>
+  <a href="#" class="logo">Vyntora<span>.</span>AI</a>
+  <ul>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#why">Why Us</a></li>
+    <li><a href="#contact" class="nav-cta">Book a Call</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">AI Solutions for Global Businesses</div>
+  <h1>We Build <em>AI</em> That Works While You Sleep</h1>
+  <p class="hero-sub">Automation, chatbots, and custom AI systems that cut costs, save time, and scale your business — delivered in days, not months.</p>
+  <div class="hero-btns">
+    <a href="#contact" class="btn-primary">Book Free AI Audit</a>
+    <a href="#services" class="btn-secondary">Explore Services</a>
+  </div>
+  <div class="stats">
+    <div class="stat">
+      <span class="stat-num">48<span>hr</span></span>
+      <div class="stat-label">Average delivery start</div>
+    </div>
+    <div class="stat">
+      <span class="stat-num">3<span>x</span></span>
+      <div class="stat-label">Average ROI for clients</div>
+    </div>
+    <div class="stat">
+      <span class="stat-num">$25<span>/hr</span></span>
+      <div class="stat-label">Starting hourly rate</div>
+    </div>
+    <div class="stat">
+      <span class="stat-num">100<span>%</span></span>
+      <div class="stat-label">Remote & global</div>
+    </div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-inner">
+    <div class="section-tag reveal">What We Do</div>
+    <h2 class="reveal">Three AI services.<br>One outcome: growth.</h2>
+    <p class="section-sub reveal">We deliver enterprise-grade AI at startup speed — no bloated teams, no hidden costs.</p>
+    <div class="services-grid reveal">
+      <div class="service-card">
+        <div class="service-icon">⚡</div>
+        <h3>AI Automation & Workflows</h3>
+        <p>We automate your repetitive processes using Make.com, Zapier, and custom scripts — saving your team 10–30 hours every week.</p>
+        <span class="service-price">From $500/project</span>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🤖</div>
+        <h3>AI Chatbots & Assistants</h3>
+        <p>Custom-built AI assistants for your website, WhatsApp, or internal tools. Handle queries, capture leads, and support customers 24/7.</p>
+        <span class="service-price">From $300/setup</span>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🧠</div>
+        <h3>AI Model Training</h3>
+        <p>We fine-tune LLMs on your business data to create domain-specific AI — from document analyzers to custom enterprise copilots.</p>
+        <span class="service-price">From $3,000/project</span>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">📈</div>
+        <h3>Performance Marketing</h3>
+        <p>AI-powered Meta and Google Ads management. Data-driven campaigns that maximize ROAS and bring you qualified leads consistently.</p>
+        <span class="service-price">From $400/month</span>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🔍</div>
+        <h3>AI SEO & Content</h3>
+        <p>We create AI-generated, human-refined content and SEO strategies that rank on Google and attract your ideal clients organically.</p>
+        <span class="service-price">From $350/month</span>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">💡</div>
+        <h3>AI Strategy Consulting</h3>
+        <p>Not sure where to start with AI? We audit your business, identify the highest-ROI opportunities, and build your AI roadmap.</p>
+        <span class="service-price">From $500/session</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="process" class="how-bg">
+  <div class="section-inner">
+    <div class="section-tag reveal">How It Works</div>
+    <h2 class="reveal">From first call to<br>live results in days.</h2>
+    <p class="section-sub reveal">A lean, proven process that gets you results fast — no lengthy contracts, no surprises.</p>
+    <div class="steps">
+      <div class="step reveal">
+        <div class="step-num">01</div>
+        <div class="step-content">
+          <h3>Free 15-min AI Audit Call</h3>
+          <p>We learn about your business, identify your biggest bottlenecks, and tell you exactly how AI can help — no obligation, no sales pitch.</p>
+        </div>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">02</div>
+        <div class="step-content">
+          <h3>Custom Proposal in 24 Hours</h3>
+          <p>You receive a clear scope of work, timeline, and fixed price. No vague estimates — you know exactly what you're getting.</p>
+        </div>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">03</div>
+        <div class="step-content">
+          <h3>We Build & Deliver Fast</h3>
+          <p>Our team starts within 48 hours of approval. Most projects are delivered in 5–14 days with full handover and documentation.</p>
+        </div>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">04</div>
+        <div class="step-content">
+          <h3>Ongoing Support & Scale</h3>
+          <p>We don't disappear after delivery. Monthly retainers available to maintain, optimize, and expand your AI systems as you grow.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section id="why">
+  <div class="section-inner">
+    <div class="section-tag reveal">Why Vyntora</div>
+    <h2 class="reveal">Built different.<br>Priced fairly. Results first.</h2>
+    <p class="section-sub reveal">We're not a bloated agency. We're a focused AI team that moves fast and delivers real outcomes.</p>
+    <div class="why-grid reveal">
+      <div class="why-card">
+        <h3>Enterprise quality, startup speed</h3>
+        <p>We deliver the same AI sophistication as big agencies — but 3x faster and at a fraction of the cost, because we run lean by design.</p>
+      </div>
+      <div class="why-card">
+        <h3>Fixed pricing, no surprises</h3>
+        <p>Every project comes with a clear fixed price agreed upfront. No hourly billing horror stories, no scope creep invoices.</p>
+      </div>
+      <div class="why-card">
+        <h3>You own everything we build</h3>
+        <p>All code, models, and systems we build belong to you. Full IP transfer on every project, no lock-in, no dependencies on us.</p>
+      </div>
+      <div class="why-card">
+        <h3>Results-focused, not activity-focused</h3>
+        <p>We measure success by business outcomes — hours saved, leads generated, revenue increased — not by hours billed or reports filed.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="contact" class="cta-section">
+  <div class="cta-inner">
+    <div class="section-tag reveal" style="text-align:center">Get Started</div>
+    <h2 class="reveal">Ready to put AI<br>to work for your business?</h2>
+    <p class="reveal">Book a free 15-minute AI audit call. We'll show you exactly where AI can save you time and money — no commitment required.</p>
+    <div class="hero-btns reveal" style="justify-content:center">
+      <a href="mailto:contact@vyntora.live" class="btn-primary">Book Free Audit Call</a>
+      <a href="mailto:contact@vyntora.live" class="btn-secondary">contact@vyntora.live</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div>
+    <a href="#" class="logo" style="font-size:18px">Vyntora<span>.</span>AI</a>
+    <p style="margin-top:8px">© 2025 Vyntora AI · Operated by Barg Info Solutions Pvt Ltd</p>
+  </div>
+  <div class="footer-links">
+    <a href="#services">Services</a>
+    <a href="#process">Process</a>
+    <a href="#why">Why Us</a>
+    <a href="mailto:contact@vyntora.live">Contact</a>
+  </div>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
