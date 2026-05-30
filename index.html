@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-64BZQ9HJ0Q"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-64BZQ9HJ0Q');
+  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Vyntora AI — AI that powers your next move</title>
@@ -1858,107 +1867,23 @@
         </div>
       </div>
 
-      <!-- Right side: Interactive Form -->
-      <div class="scheduler-form-wrapper">
-        
-        <!-- Form view -->
-        <div id="bookingFormContainer">
-          <form id="bookingForm" novalidate>
-            
-            <!-- Step 1: Date Choice -->
-            <div class="step-title">
-              <span>01.</span> Select Available Date
-            </div>
-            <div class="date-grid" id="dateGrid">
-              <!-- Dynamically populated weekdays -->
-            </div>
+      <!-- Right side: Cal.com Inline Embed -->
+      <div class="scheduler-form-wrapper" style="min-height: 600px; padding: 12px; display: flex; align-items: stretch;">
+        <!-- Cal inline embed code begins -->
+        <div style="width:100%;height:100%;min-height:580px;overflow:scroll;border-radius:12px;" id="my-cal-inline-30min"></div>
+        <script type="text/javascript">
+          (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
+          Cal("init", "30min", {origin:"https://app.cal.com"});
 
-            <!-- Step 2: Time Choice -->
-            <div class="step-title">
-              <span>02.</span> Select Time Slot (IST)
-            </div>
-            <div class="time-container">
-              <div class="time-grid" id="timeGrid">
-                <!-- Dynamically populated timeslots -->
-              </div>
-            </div>
+          Cal.ns["30min"]("inline", {
+            elementOrSelector:"#my-cal-inline-30min",
+            config: {"layout":"month_view","useSlotsViewOnSmallScreen":"true"},
+            calLink: "vyntora/30min",
+          });
 
-            <!-- Step 3: Details -->
-            <div class="step-title">
-              <span>03.</span> Your Information
-            </div>
-
-            <div class="form-group">
-              <label class="form-label" for="clientName">Full Name</label>
-              <input type="text" id="clientName" class="form-input" placeholder="e.g. John Doe" required>
-            </div>
-
-            <div class="form-group">
-              <label class="form-label" for="clientEmail">Email Address</label>
-              <input type="email" id="clientEmail" class="form-input" placeholder="e.g. john@company.com" required>
-            </div>
-
-            <div class="form-group">
-              <label class="form-label" for="clientCompany">Company Name</label>
-              <input type="text" id="clientCompany" class="form-input" placeholder="e.g. Acme Corp" required>
-            </div>
-
-            <div class="form-group">
-              <label class="form-label" for="clientNeed">How can we help?</label>
-              <select id="clientNeed" class="form-input" required>
-                <option value="" disabled selected>Select an option</option>
-                <option value="AI Automation">AI Automation (Workflows / Syncs)</option>
-                <option value="AI Chatbots">AI Chatbots & Agents</option>
-                <option value="AI Model Training">AI Model Training & Fine-Tuning</option>
-                <option value="Performance Marketing">Performance Marketing</option>
-                <option value="SEO & Content">SEO & Content Optimization</option>
-                <option value="AI Consulting">AI Consulting & Scoping</option>
-                <option value="Other">Other Custom Development</option>
-              </select>
-            </div>
-
-            <div class="form-error" id="formError">Please fill out all required fields.</div>
-
-            <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 10px;">
-              Confirm My Booking Slot
-            </button>
-          </form>
-        </div>
-
-        <!-- Success Confirmation View -->
-        <div id="confirmationView" class="confirmation-view">
-          <div class="confirmation-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
-            </svg>
-          </div>
-          <h4 class="confirmation-title">Booking Confirmed!</h4>
-          <p class="confirmation-desc" id="confirmText">
-            We'll confirm your slot within 2 hours at your email.
-          </p>
-          <div class="confirmation-details">
-            <div class="conf-row">
-              <span class="conf-label">Client Name:</span>
-              <span class="conf-val" id="confClientName">-</span>
-            </div>
-            <div class="conf-row">
-              <span class="conf-label">Date Selected:</span>
-              <span class="conf-val" id="confDate">-</span>
-            </div>
-            <div class="conf-row">
-              <span class="conf-label">Time Selected:</span>
-              <span class="conf-val" id="confTime">-</span>
-            </div>
-            <div class="conf-row">
-              <span class="conf-label">Service Focus:</span>
-              <span class="conf-val" id="confNeed">-</span>
-            </div>
-          </div>
-          <button type="button" class="btn btn-secondary" onclick="resetBookingForm()" style="width: 100%;">
-            Schedule Another Audit
-          </button>
-        </div>
-
+          Cal.ns["30min"]("ui", {"hideEventTypeDetails":false,"layout":"month_view"});
+        </script>
+        <!-- Cal inline embed code ends -->
       </div>
     </div>
     
@@ -2248,205 +2173,6 @@
 
     revealElements.forEach(el => revealObserver.observe(el));
 
-    // SCHEDULER WIDGET GENERATION
-    let selectedDateStr = "";
-    let selectedTimeStr = "";
-
-    // Generate weekdays (excluding Sat & Sun) starting from tomorrow (or today if weekday during hours)
-    function generateSchedulerDates() {
-      const dateGrid = document.getElementById('dateGrid');
-      if (!dateGrid) return;
-      
-      dateGrid.innerHTML = "";
-      
-      const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-      const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-      
-      // Let's use the local simulated date: Saturday, May 30, 2026
-      // In production, new Date() resolves to current client date.
-      // We will initialize from current actual date
-      let current = new Date("2026-05-30T15:00:00+05:30"); // Target user's state date
-      
-      let count = 0;
-      let iterations = 0;
-      
-      // Generate the next 8 available weekdays
-      while (count < 8 && iterations < 30) {
-        iterations++;
-        // Move to next day
-        current.setDate(current.getDate() + 1);
-        const dayIdx = current.getDay();
-        
-        // Skip Sat (6) and Sun (0)
-        if (dayIdx !== 0 && dayIdx !== 6) {
-          const dateVal = `${current.getFullYear()}-${String(current.getMonth() + 1).padStart(2, '0')}-${String(current.getDate()).padStart(2, '0')}`;
-          
-          const slot = document.createElement('div');
-          slot.className = 'date-slot';
-          if (count === 0) {
-            slot.classList.add('selected');
-            selectedDateStr = dateVal;
-          }
-          
-          slot.dataset.date = dateVal;
-          
-          slot.innerHTML = `
-            <div class="date-slot-day">${weekdays[dayIdx]}</div>
-            <div class="date-slot-num">${current.getDate()}</div>
-            <div class="date-slot-month">${months[current.getMonth()]}</div>
-          `;
-          
-          slot.addEventListener('click', () => {
-            document.querySelectorAll('.date-slot').forEach(el => el.classList.remove('selected'));
-            slot.classList.add('selected');
-            selectedDateStr = dateVal;
-            generateTimeSlots(dateVal);
-          });
-          
-          dateGrid.appendChild(slot);
-          count++;
-        }
-      }
-      
-      // Trigger time slot generation for default selected day
-      if (selectedDateStr) {
-        generateTimeSlots(selectedDateStr);
-      }
-    }
-
-    // Generate timeslots from 9 AM to 6 PM IST
-    function generateTimeSlots(dateStr) {
-      const timeGrid = document.getElementById('timeGrid');
-      if (!timeGrid) return;
-      
-      timeGrid.innerHTML = "";
-      selectedTimeStr = ""; // reset selection
-      
-      const baseSlots = [
-        { label: "9:00 AM", hour: 9 },
-        { label: "10:00 AM", hour: 10 },
-        { label: "11:00 AM", hour: 11 },
-        { label: "12:00 PM", hour: 12 },
-        { label: "1:00 PM", hour: 13 },
-        { label: "2:00 PM", hour: 14 },
-        { label: "3:00 PM", hour: 15 },
-        { label: "4:00 PM", hour: 16 },
-        { label: "5:00 PM", hour: 17 },
-        { label: "6:00 PM", hour: 18 }
-      ];
-      
-      // Get existing bookings to disable booked timeslots
-      const bookings = JSON.parse(localStorage.getItem('vyntora_bookings') || '[]');
-      
-      baseSlots.forEach(slotInfo => {
-        const timeVal = slotInfo.label;
-        
-        // Check if slot is already booked for this date
-        const isBooked = bookings.some(b => b.date === dateStr && b.time === timeVal);
-        
-        // Also check if selected day is "today" and block past timeslots
-        let isPast = false;
-        const todayStr = "2026-05-30"; // Current simulated date
-        const currentHour = 15; // 3:00 PM IST
-        
-        if (dateStr === todayStr && slotInfo.hour <= currentHour) {
-          isPast = true;
-        }
-
-        const slot = document.createElement('div');
-        slot.className = 'time-slot';
-        slot.textContent = timeVal;
-        
-        if (isBooked || isPast) {
-          slot.classList.add('disabled');
-        } else {
-          slot.addEventListener('click', () => {
-            document.querySelectorAll('.time-slot').forEach(el => el.classList.remove('selected'));
-            slot.classList.add('selected');
-            selectedTimeStr = timeVal;
-          });
-        }
-        
-        timeGrid.appendChild(slot);
-      });
-    }
-
-    // FORM SUBMISSION & LOCALSTORAGE
-    const bookingForm = document.getElementById('bookingForm');
-    const bookingFormContainer = document.getElementById('bookingFormContainer');
-    const confirmationView = document.getElementById('confirmationView');
-    const formError = document.getElementById('formError');
-
-    if (bookingForm) {
-      bookingForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        formError.style.display = 'none';
-
-        // Get details
-        const name = document.getElementById('clientName').value.trim();
-        const email = document.getElementById('clientEmail').value.trim();
-        const company = document.getElementById('clientCompany').value.trim();
-        const need = document.getElementById('clientNeed').value;
-
-        // Basic validations
-        if (!name || !email || !company || !need || !selectedDateStr || !selectedTimeStr) {
-          formError.textContent = "Please fill out all fields and select a date/time.";
-          formError.style.display = 'block';
-          return;
-        }
-
-        // Email validation
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(email)) {
-          formError.textContent = "Please enter a valid email address.";
-          formError.style.display = 'block';
-          return;
-        }
-
-        // Create booking object
-        const booking = {
-          id: 'b_' + Date.now(),
-          name,
-          email,
-          company,
-          need,
-          date: selectedDateStr,
-          time: selectedTimeStr,
-          timestamp: new Date().toISOString()
-        };
-
-        // Save to LocalStorage
-        const bookings = JSON.parse(localStorage.getItem('vyntora_bookings') || '[]');
-        bookings.push(booking);
-        localStorage.setItem('vyntora_bookings', JSON.stringify(bookings));
-
-        // Format Date for confirmation screen (e.g. 2026-06-01 -> Jun 1, 2026)
-        const dObj = new Date(selectedDateStr + "T00:00:00");
-        const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-        const formattedDate = `${months[dObj.getMonth()]} ${dObj.getDate()}, ${dObj.getFullYear()}`;
-
-        // Populate Confirmation Details
-        document.getElementById('confClientName').textContent = name;
-        document.getElementById('confDate').textContent = formattedDate;
-        document.getElementById('confTime').textContent = selectedTimeStr + " (IST)";
-        document.getElementById('confNeed').textContent = need;
-        document.getElementById('confirmText').textContent = `We'll confirm your slot within 2 hours at ${email}`;
-
-        // Swap Views
-        bookingFormContainer.style.display = 'none';
-        confirmationView.style.display = 'flex';
-      });
-    }
-
-    function resetBookingForm() {
-      if (bookingForm) {
-        bookingForm.reset();
-      }
-      bookingFormContainer.style.display = 'block';
-      confirmationView.style.display = 'none';
-      generateSchedulerDates();
-    }
-
     // ADMIN DIALOG CREDENTIALS & PANELS
     const adminModal = document.getElementById('adminModal');
     const adminPasswordView = document.getElementById('adminPasswordView');
@@ -2622,7 +2348,7 @@
 
     // INITIALIZATION
     window.addEventListener('DOMContentLoaded', () => {
-      generateSchedulerDates();
+      // Cal.com replaces scheduler widget
     });
   </script>
 </body>
